@@ -7,6 +7,7 @@ import (
 
 type UserRepository interface {
 	Create(user models.User) (models.User, error)
+	Control(uuid string) (models.User, error)
 }
 
 type userConnection struct {
@@ -26,5 +27,16 @@ func (c *userConnection) Create(user models.User) (models.User, error) {
 	if err := c.connection.Create(&user).Error; err != nil {
 		return user, err
 	}
+	return user, nil
+}
+
+// ----------> Control to User  
+func (c *userConnection) Control(uuid string) (models.User, error) {
+	var user models.User
+
+	if err := c.connection.First(&user, "id = ?", uuid).Error; err != nil {
+		return user, err
+	}
+
 	return user, nil
 }
