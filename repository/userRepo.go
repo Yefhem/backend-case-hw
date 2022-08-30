@@ -3,8 +3,6 @@ package repository
 import (
 	"github.com/Yefhem/hello-world-case/models"
 	"gorm.io/gorm"
-
-	"github.com/google/uuid"
 )
 
 type UserRepository interface {
@@ -23,11 +21,8 @@ func NewUserRepository(connection *gorm.DB) UserRepository {
 
 // --------------------> Methods
 
-// ----------> Create a New User Account
+// ----------> Create to DB
 func (c *userConnection) Create(user models.User) (models.User, error) {
-
-	user.ID = uuid.NewString()
-
 	if err := c.connection.Create(&user).Error; err != nil {
 		return user, err
 	}
