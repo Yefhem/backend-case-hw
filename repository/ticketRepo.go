@@ -23,7 +23,7 @@ func NewTicketRepository(connection *gorm.DB) TicketRepository {
 
 // --------------------> Methods
 
-// ----------> Create a New ticket_options
+// ----------> Create to DB
 func (c *ticketConnection) Create(ticket models.Ticket) (models.Ticket, error) {
 	if err := c.connection.Create(&ticket).Error; err != nil {
 		return ticket, err
@@ -31,7 +31,7 @@ func (c *ticketConnection) Create(ticket models.Ticket) (models.Ticket, error) {
 	return ticket, nil
 }
 
-// ----------> Get Ticket by ID
+// ----------> Get Single Data from DB by ID
 func (c *ticketConnection) Get(id uint) (models.Ticket, error) {
 	var ticket models.Ticket
 
@@ -42,7 +42,7 @@ func (c *ticketConnection) Get(id uint) (models.Ticket, error) {
 	return ticket, nil
 }
 
-// ----------> Update Ticket for Purchase
+// ----------> Save Changes to DB
 func (c *ticketConnection) Update(updatedTicket models.Ticket) error {
 
 	if err := c.connection.Save(&updatedTicket).Error; err != nil {
